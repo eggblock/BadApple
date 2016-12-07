@@ -121,6 +121,13 @@ $(function () {
     });
 
     function step(){
+      if (musicPlayer.paused) {
+        musicPlayer.currentTime= (playProgres*33)/1000;
+        musicPlayer.play();
+      }else {
+        clearTimeout(PlayTimer);
+      }
+      //musicPlayer.play();
       v++;
       if(v==2){
         playProgres++;
@@ -129,7 +136,6 @@ $(function () {
             playStatus = false;
             return;
         }else{
-            console.log(willPlayDataDic[''+playProgres]);
             let _tmp = willPlayDataDic[''+playProgres];
             _tmp = DunzipA(_tmp);
             $playWindow.html(`${_tmp}`);
@@ -139,7 +145,15 @@ $(function () {
         }
       }
       if(playStatus){
-        rFrame(step)
+        PlayTimer = setTimeout(function(){
+          musicPlayer.pause();
+        },33);
+        rFrame(step);
+        //console.log(rFrame(step));
+        /*if(rFrame(step)){
+
+          //musicPlayer.pause();
+        }*/
       }else{
         musicPlayer.pause();
       }
@@ -148,7 +162,8 @@ $(function () {
           playStatus = false;
           musicPlayer.pause();
           musicPlayer.currentTime=0;
-          $playWindow.html(willPlayDataDic[''+1]);
+          _tmp = DunzipA(willPlayDataDic[''+1]);
+          $playWindow.html(`${_tmp}`);
       }
     }
 
