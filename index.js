@@ -26,6 +26,7 @@ var $playProgressDiv = $("#playProgress");
 var $playProgressText = $("#playProgressText");
 var $musicPlayer = $("#musicPlayer")[0];
 let [v,count] = [0,1];
+let URL = "bad.js";
 function fi(){
   const fi =` &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<br>
   &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<br>
@@ -84,7 +85,6 @@ $(function () {
     };*/
     $playButton.on('click',function(){
       let _s = this;
-      console.log(willPlayDataDic);
       $(_s).attr('src','images/pause.png');
       /*if (!musicPlayer.paused){
           musicPlayer.pause();
@@ -128,11 +128,15 @@ $(function () {
             musicPlayer.pause();
             playStatus = false;
             return;
+        }else{
+            console.log(willPlayDataDic[''+playProgres]);
+            let _tmp = willPlayDataDic[''+playProgres];
+            _tmp = DunzipA(_tmp);
+            $playWindow.html(`${_tmp}`);
+            $playProgressDiv.css('width',parseFloat(playProgres)/6574.0*100+"%");
+            $playProgressText.html("播放进度:"+playProgres+"/6574 【"+ (playProgres/6574.0*100).toFixed(2)+"%】");
+            v=0;
         }
-        $playWindow.html(willPlayDataDic[playProgres]);
-        $playProgressDiv.css('width',parseFloat(playProgres)/6574.0*100+"%");
-        $playProgressText.html("播放进度:"+playProgres+"/6574 【"+ (playProgres/6574.0*100).toFixed(2)+"%】");
-        v=0;
       }
       if(playStatus){
         rFrame(step)
@@ -144,7 +148,7 @@ $(function () {
           playStatus = false;
           musicPlayer.pause();
           musicPlayer.currentTime=0;
-          $playWindow.html(willPlayDataDic[1]);
+          $playWindow.html(willPlayDataDic[''+1]);
       }
     }
 
@@ -158,24 +162,89 @@ $(function () {
       $playProgressText.html("播放进度:"+playProgres+"/6574 【"+ (playProgres/6574.0*100).toFixed(2)+"%】");
       $playWindow(willPlayDataDic[1]);
     });
-    _getData("BadAppleText/" + count + ".html",count);
+    _getData(URL);
 });
-
-
-function _getData(URL,count){
+function _getData(URL){
   $.get(URL).done(function(e){
-    willPlayDataDic[count]=e;
-    downloadProgres+=1;
-    $downloadProgressDiv.css('width',parseFloat(downloadProgres)/6574.0*100+"%");
-    $downloadProgressText.html("缓冲进度:"+downloadProgres+"/6574 【"+ (downloadProgres/6574.0*100).toFixed(2)+"%】");
-    count+=1;
-    let URL = "BadAppleText/" + count + ".html"
-    _getData(URL,count);
+    willPlayDataDic=eval(`(${e})`);
+    //willPlayDataDic=eval(`(${e.responseText})`);
+    //downloadProgres+=1;
+    //$downloadProgressDiv.css('width',parseFloat(downloadProgres)/6574.0*100+"%");
+    $downloadProgressText.html("缓冲进度:100%");
   }).fail(function(err){
     if(err){
-      console.log(err)
-      let URL = "BadAppleText/" + count + ".html";
-      if(count<6575)_getData(URL,count);
+      //console.log(err.responseText);
+
+      //_getData(URL,count);
     }
   })
+}
+function DunzipA(str){
+  let rx = /\leiA|\leiB|\leiC|\leiD|\leiE|\leiF|\leiG/g
+  str = str.replace(rx,function (MatchStr) {
+      switch (MatchStr) {
+          //101
+          case "leiA":
+              return "&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+              break;
+          //64
+          case "leiB":
+              return "&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+              break;
+          //32
+          case "leiC":
+              return "&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+              break;
+          //16
+          case "leiD":
+              return "&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+              break;
+          //8
+          case "leiE":
+              return "&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;";
+              break;
+          //4
+          case "leiF":
+              return "&ensp;&ensp;&ensp;&ensp;";
+              break;
+          //2
+          case "leiG":
+              return "&ensp;&ensp;";
+              break;
+          default:
+              break;
+      }
+  });
+  return DunzipB(str);
+}
+
+function DunzipB(str) {
+  let rx = /\mrA|\mrB|\mrC|\mrD|\mrE/g
+  str = str.replace(rx,function (MatchStr) {
+      switch (MatchStr) {
+          //101
+          case "mrA":
+              return "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
+              break;
+          //64
+          case "mrB":
+              return "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
+              break;
+          //32
+          case "mrC":
+              return "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
+              break;
+          //16
+          case "mrD":
+              return "MMMMMMMMMMMMMMMM";
+              break;
+          //8
+          case "mrE":
+              return "MMMMMMMM";
+              break;
+          default:
+              break;
+      }
+  });
+  return str;
 }
