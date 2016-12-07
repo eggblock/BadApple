@@ -1,13 +1,14 @@
 {
-  "name": "test5",
-  "version": "1.0.0",
-  "description": "",
+  "name": "badapple",
+  "version": "1.1.0",
+  "description": "badapplehtml5字符串版",
   "main": "index.js",
   "scripts": {
-    "test": "webpack-dev-server --devtool eval --hot --inline --progress --colors --host 0.0.0.0 --port 12450"
+    "test": "webpack-dev-server --devtool eval --hot --inline --progress --colors --host 0.0.0.0 --port 12450",
+    "build": "webpack"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.8",
