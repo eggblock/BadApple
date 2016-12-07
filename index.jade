@@ -1,13 +1,17 @@
 #controlDiv
-    p#controlDivTitle BadApple-播放控制
-    h2 有屏幕的地方就有BadApple
-    #progress
-        #playProgress
-        #downloadProgress
-    p#playProgressText 播放进度:0/6570 【0.00%】
-    p#downloadProgressText 缓冲进度:0/6570 【0.00%】
-    img#play_button(src='images/play.png')
-    img#stop_button(src='images/stop.png')
+    h3#controlDivTitle BadApple-播放控制
+    p 有屏幕的地方就有BadApple
 .screen
-    p#play_window
+    p#play_window.play-window
+.buttonpanel
+    a.btn 
+        img#play_button(src='images/play.png')
+    a.btn 
+        img#stop_button(src='images/stop.png')
+.cln
+    #progress
+        #downloadProgress
+        #playProgress
+    p#downloadProgressText.progress-text 缓冲进度:0/6570 【0.00%】
+    p#playProgressText.progress-text 播放进度:0/6570 【0.00%】
 audio#musicPlayer(src='./BadAppleMp3/BadApple.mp3')
